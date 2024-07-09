@@ -51,3 +51,4 @@
     * git remote add origin https://github.com/SamahOud/E-Commerce_MERN-1.git
     * git push -u origin main
 
+11. npm i dotenv --save
