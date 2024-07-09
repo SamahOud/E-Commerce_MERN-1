@@ -12,3 +12,9 @@
 3. https://reactrouter.com/en/main/start/tutorial
 
 4. npm install react-router-dom
+
+5. https://mui.com/material-ui/getting-started/
+
+6. npm install @mui/material @emotion/react @emotion/styled
+
+7. npm i @mui/icons-material
