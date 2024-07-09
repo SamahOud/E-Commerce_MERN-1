@@ -8,4 +8,7 @@
     * npm install
     * npm run dev
     ➜  Local:   http://localhost:5173/
-3. 
+
+3. https://reactrouter.com/en/main/start/tutorial
+
+4. npm install react-router-dom
