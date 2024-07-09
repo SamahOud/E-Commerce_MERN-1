@@ -1,0 +1,11 @@
+1. npm create vite@latest
+    √ Project name: ... frontend
+    √ Select a framework: » React
+    √ Select a variant: » TypeScript
+
+2. Done. Now run:
+    * cd frontend
+    * npm install
+    * npm run dev
+    ➜  Local:   http://localhost:5173/
+3. 
