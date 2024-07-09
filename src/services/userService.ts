@@ -2,6 +2,7 @@ import { userModel } from "../models/userModel";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+// ******************** Register Params ********************
 interface RegisterParams {
     firstName: string;
     lastName: string;
@@ -20,6 +21,7 @@ export const register = async ({ firstName, lastName, email, password }: Registe
     return { data: generateJWT({ firstName, lastName, email }), statusCode: 200 }
 }
 
+// ******************** Login Params ********************
 interface LoginParams {
     email: string;
     password: string;
