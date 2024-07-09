@@ -1,0 +1,53 @@
+1. npm init -y
+
+2. npm i express mongoose typescript
+
+3. npm i --save-dev nodemon ts-node
+
+    * nodemon is a utility that automatically restarts the Node.js 
+      application when file changes in the directory are detected. 
+      This is useful during development to avoid manually 
+      restarting the server after making changes.
+
+    * ts-node is a TypeScript execution environment and REPL for Node.js,
+      which allows you to run TypeScript code directly without the need for compilation.
+
+    * The --save-dev flag tells npm to save the packages as development
+      dependencies in your package.json file. This means that these packages
+      are only installed for development purposes and not required for the production environment.
+
+4. npx tsc --init 
+    * npx is a package runner tool that comes with npm (Node Package Manager). 
+      It allows you to run packages that are not globally installed.
+
+    * tsc is the TypeScript compiler.
+
+    * --init is a flag that tells the TypeScript compiler to create a tsconfig.json
+      file in the current directory.
+
+    * The tsconfig.json file is a configuration file that specifies how the TypeScript
+      compiler should compile your project. It includes options like the target
+      ECMAScript version, module system, and other compiler options.
+
+    * By running npx tsc --init, you're creating a new tsconfig.json file
+      in your project directory. This file will contain the default configuration
+      for a TypeScript project, which you can then customize according to your needs.
+
+5. npm i --save-dev @types/express
+
+6. npm i bcrypt
+
+7. npm i --save-dev @types/bcrypt
+
+8. npm i jsonwebtoken
+
+9. npm i --save-dev @types/jsonwebtoken
+
+10. push to GitHub
+    * git init
+    * git add .
+    * git commit -m "first commit"
+    * git branch -M main
+    * git remote add origin https://github.com/SamahOud/E-Commerce_MERN-1.git
+    * git push -u origin main
+
