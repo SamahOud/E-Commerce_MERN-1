@@ -52,3 +52,7 @@
     * git push -u origin main
 
 11. npm i dotenv --save
+
+12. npm i cors
+
+13. npm i --save-dev @types/cors

@@ -15,7 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function Navbar() {
+const Navbar = () => {
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -39,7 +39,7 @@ function Navbar() {
                                 component="a"
                                 sx={{
                                     mr: 2,
-                                    display: { xs: 'flex', md: 'none' },
+                                    display: { xs: 'flex', md: 'flex' },
                                     flexGrow: 1,
                                     fontFamily: 'monospace',
                                     fontWeight: 700,
