@@ -22,7 +22,7 @@ const HomePage = () => {
         fetchData()
     }, [])
 
-    if(error) {
+    if (error) {
         return <Box>Something went wronh, please try again!</Box>
     }
 
