@@ -3,7 +3,7 @@ import { CartContext } from "./CartContext"
 import { CartItem } from "../../types/CartItem";
 import { BASE_URI } from "../../constants/baseUrl";
 import { useAuth } from "../Auth/AuthContext";
-import { Box } from "@mui/material";
+import { Typography } from "@mui/material";
 
 const CartProvider: FC<PropsWithChildren> = ({ children }) => {
     const { token } = useAuth()
@@ -176,19 +176,23 @@ const CartProvider: FC<PropsWithChildren> = ({ children }) => {
             console.log(err);
         }
     }
+
     return (
-        <CartContext.Provider
-            value={{
-                cartItems,
-                totalAmount,
-                addItemToCart,
-                updateItemInCart,
-                removeItemInCart,
-                clearCart
-            }}
-        >
-            {children}
-        </CartContext.Provider>
+        <>
+            {error && <Typography style={{ color: 'red' }}>{error}</Typography>}
+            <CartContext.Provider
+                value={{
+                    cartItems,
+                    totalAmount,
+                    addItemToCart,
+                    updateItemInCart,
+                    removeItemInCart,
+                    clearCart
+                }}
+            >
+                {children}
+            </CartContext.Provider>
+        </>
     )
 }
 
