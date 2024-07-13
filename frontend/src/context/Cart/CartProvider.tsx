@@ -28,15 +28,15 @@ const CartProvider: FC<PropsWithChildren> = ({ children }) => {
                 return
             }
             const cart = await response.json()
-            const cartItemsMapped = cart.items.map(({ 
+            const cartItemsMapped = cart.items.map(({
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 product, quantity, unitPrice }: { product: any; quantity: number; unitPrice: number }) => ({
-                productId: product._id,
-                title: product.title,
-                image: product.image,
-                quantity,
-                unitPrice
-            }))
+                    productId: product._id,
+                    title: product.title,
+                    image: product.image,
+                    quantity,
+                    unitPrice
+                }))
 
             setCartItems(cartItemsMapped)
             setTotalAmount(cart.totalAmount)
@@ -81,11 +81,48 @@ const CartProvider: FC<PropsWithChildren> = ({ children }) => {
             console.log(err);
 
         }
-
     }
 
+    const updateItemInCart = async (productId: string, quantity: number) => {
+        try {
+            const response = await fetch(`${BASE_URI}/cart/items`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    productId,
+                    quantity
+                })
+            })
+            if (!response.ok) {
+                setError('Failed to update cart')
+            }
+
+            const cart = await response.json()
+            if (!cart) {
+                setError('Failed to parse cart data')
+            }
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const cartItemsMapped = cart.items.map(({ product, quantity, unitPrice }: { product: any; quantity: number; unitPrice: number }) => ({
+                productId: product._id,
+                title: product.title,
+                image: product.image,
+                quantity,
+                unitPrice
+            }))
+
+            setCartItems([...cartItemsMapped])
+            setTotalAmount(cart.totalAmount)
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
     return (
-        <CartContext.Provider value={{ cartItems, totalAmount, addItemToCart }}>
+        <CartContext.Provider value={{ cartItems, totalAmount, addItemToCart, updateItemInCart }}>
             {children}
         </CartContext.Provider>
     )
