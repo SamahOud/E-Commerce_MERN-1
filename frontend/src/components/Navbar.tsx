@@ -5,13 +5,13 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-// import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-// import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Badge from '@mui/material/Badge';
 import { useAuth } from '../context/Auth/AuthContext';
 import { Button, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -42,6 +42,10 @@ const Navbar = () => {
         handleCloseUserMenu()
     }
 
+    const handleCart = () => {
+        navigate("/cart")
+    }
+
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -65,7 +69,12 @@ const Navbar = () => {
                             </Typography>
                         </Box>
 
-                        <Box sx={{ flexGrow: 0 }}>
+                        <Box sx={{ flexGrow: 0 }} display="flex" flexDirection="row" gap={2} alignItems="center" justifyContent="center">
+                            <IconButton aria-label="cart" onClick={handleCart}>
+                                <Badge badgeContent={4} color="secondary">
+                                    <ShoppingCartIcon sx={{ color: "#ffffff"}}/>
+                                </Badge>
+                            </IconButton>
                             {isAuthenticated ? (
                                 <>
                                     <Tooltip title="Open settings">
