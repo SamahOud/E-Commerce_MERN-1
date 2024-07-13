@@ -2,10 +2,37 @@ import { Box, Container, TextField, Typography } from "@mui/material"
 import { useCart } from "../context/Cart/CartContext"
 import Button from '@mui/material/Button';
 import { useRef } from "react";
+import { BASE_URI } from "../constants/baseUrl";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/Auth/AuthContext";
 
 const CheckoutPage = () => {
     const { cartItems, totalAmount } = useCart()
+    const { token } = useAuth()
+
     const addressRef = useRef<HTMLInputElement>(null)
+
+    const navigate = useNavigate()
+
+    const handleConfirmOrder = async () => {
+        const address = addressRef.current?.value
+        if (!address) {
+            return
+        }
+
+        const response = await fetch(`${BASE_URI}/cart/checkout`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({ address })
+        })
+        if (!response.ok) {
+            return
+        }
+        navigate("/order-success")
+    }
 
     const renderCartItems = () => (
         <Box display="flex" flexDirection="column" gap={2}
@@ -30,7 +57,7 @@ const CheckoutPage = () => {
             ))}
 
             <Box>
-                <Typography variant="body2" sx={{ textAlign: "right"}}>Totla Amount: {totalAmount.toFixed(2)} $</Typography>
+                <Typography variant="body2" sx={{ textAlign: "right" }}>Totla Amount: {totalAmount.toFixed(2)} $</Typography>
             </Box>
         </Box>
     )
@@ -42,7 +69,7 @@ const CheckoutPage = () => {
             </Box>
             <TextField inputRef={addressRef} label="Delivery Address" name="address" fullWidth />
             {renderCartItems()}
-            <Button variant="contained" fullWidth>Pay Now</Button>
+            <Button variant="contained" fullWidth onClick={handleConfirmOrder}>Pay Now</Button>
         </Container >
     )
 }
