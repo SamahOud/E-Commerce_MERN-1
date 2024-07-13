@@ -79,7 +79,6 @@ const CartProvider: FC<PropsWithChildren> = ({ children }) => {
             setTotalAmount(cart.totalAmount)
         } catch (err) {
             console.log(err);
-
         }
     }
 
@@ -118,7 +117,6 @@ const CartProvider: FC<PropsWithChildren> = ({ children }) => {
             setTotalAmount(cart.totalAmount)
         } catch (err) {
             console.log(err);
-
         }
     }
 
@@ -127,7 +125,7 @@ const CartProvider: FC<PropsWithChildren> = ({ children }) => {
             const response = await fetch(`${BASE_URI}/cart/items/${productId}`, {
                 method: "DELETE",
                 headers: {
-                   Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}`
                 }
             })
             if (!response.ok) {
@@ -152,12 +150,43 @@ const CartProvider: FC<PropsWithChildren> = ({ children }) => {
             setTotalAmount(cart.totalAmount)
         } catch (err) {
             console.log(err);
-
         }
     }
 
+    const clearCart = async () => {
+        try {
+            const response = await fetch(`${BASE_URI}/cart`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            if (!response.ok) {
+                setError('Failed to empty cart')
+            }
+
+            const cart = await response.json()
+            if (!cart) {
+                setError('Failed to parse cart data')
+            }
+
+            setCartItems([])
+            setTotalAmount(0)
+        } catch (err) {
+            console.log(err);
+        }
+    }
     return (
-        <CartContext.Provider value={{ cartItems, totalAmount, addItemToCart, updateItemInCart, removeItemInCart }}>
+        <CartContext.Provider
+            value={{
+                cartItems,
+                totalAmount,
+                addItemToCart,
+                updateItemInCart,
+                removeItemInCart,
+                clearCart
+            }}
+        >
             {children}
         </CartContext.Provider>
     )
