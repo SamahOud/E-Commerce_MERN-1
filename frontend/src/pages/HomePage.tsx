@@ -23,7 +23,7 @@ const HomePage = () => {
     }, [])
 
     if (error) {
-        return <Box>Something went wronh, please try again!</Box>
+        return <Box>Something went wrong, please try again!</Box>
     }
 
     return (
