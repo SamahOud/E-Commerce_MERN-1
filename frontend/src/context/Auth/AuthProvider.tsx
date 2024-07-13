@@ -10,15 +10,6 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const isAuthenticated = !!token
 
-    // useEffect(() => {
-    //     const localUsername = localStorage.getItem(USERNAME_KEY)
-    //     const localToken = localStorage.getItem(TOKEN_KEY)
-    //     if (username && token) {
-    //         setUsername(localUsername)
-    //         setToken(localToken)
-    //     }
-    // }, [])
-
     const login = (username: string, token: string) => {
         setUsername(username)
         setToken(token)

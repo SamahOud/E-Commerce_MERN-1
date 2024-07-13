@@ -15,10 +15,12 @@ import Badge from '@mui/material/Badge';
 import { useAuth } from '../context/Auth/AuthContext';
 import { Button, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../context/Cart/CartContext';
 
 
 const Navbar = () => {
     const { username, isAuthenticated, logout } = useAuth()
+    const { cartItems } = useCart()
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
     const navigate = useNavigate()
@@ -51,28 +53,31 @@ const Navbar = () => {
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
-                        <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                            <AdbIcon sx={{ display: { md: 'flex' }, mr: 1 }} />
-                            <Typography
-                                variant="h5"
-                                noWrap
-                                component="a"
-                                sx={{
-                                    mr: 2,
-                                    display: { xs: 'flex', md: 'flex' },
-                                    flexGrow: 1,
-                                    fontFamily: 'monospace',
-                                    fontWeight: 700,
-                                }}
-                            >
-                                Tech Hub
-                            </Typography>
-                        </Box>
+
+                        <Button variant='text' sx={{ color: "#ffffff" }} onClick={() => navigate("/")}>
+                            <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                                <AdbIcon sx={{ display: { md: 'flex' }, mr: 1 }} />
+                                <Typography
+                                    variant="h5"
+                                    noWrap
+                                    component="a"
+                                    sx={{
+                                        mr: 2,
+                                        display: { xs: 'flex', md: 'flex' },
+                                        flexGrow: 1,
+                                        fontFamily: 'monospace',
+                                        fontWeight: 700,
+                                    }}
+                                >
+                                    Tech Hub
+                                </Typography>
+                            </Box>
+                        </Button>
 
                         <Box sx={{ flexGrow: 0 }} display="flex" flexDirection="row" gap={2} alignItems="center" justifyContent="center">
                             <IconButton aria-label="cart" onClick={handleCart}>
-                                <Badge badgeContent={4} color="secondary">
-                                    <ShoppingCartIcon sx={{ color: "#ffffff"}}/>
+                                <Badge badgeContent={cartItems.length} color="secondary">
+                                    <ShoppingCartIcon sx={{ color: "#ffffff" }} />
                                 </Badge>
                             </IconButton>
                             {isAuthenticated ? (
