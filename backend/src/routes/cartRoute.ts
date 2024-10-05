@@ -21,8 +21,7 @@ router.delete('/', validateJWT, async (req: ExtendRequest, res) => {
     try {
         // TODO: get the userId from the jwt, after validating from middleware
         const userId = req?.user?._id
-        // Get active cart for user
-        const cart = await getActiveCartForUser({ userId })
+        const cart = await clearCart({ userId })
         res.status(200).send(cart)
     } catch (err) {
         res.status(500).send("Something went wrong!")

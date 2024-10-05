@@ -148,7 +148,7 @@ export const deleteItemInCart = async ({ userId, productId }: DeleteItemInCart) 
 }
 
 const calculateCartTotalItems = ({ cartItems }: { cartItems: ICartItem[] }) => {
-    // Calculate totla amount for the cart
+    // Calculate total  amount for the cart
     const total = cartItems.reduce((sum, product) => {
         return sum + (product.quantity * product.unitPrice)
     }, 0)
