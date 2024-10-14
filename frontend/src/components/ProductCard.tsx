@@ -4,7 +4,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useCart } from '../context/Cart/CartContext';
+import { Box, IconButton } from '@mui/material';
 
 interface Props {
     _id: string;
@@ -16,23 +18,40 @@ interface Props {
 const ProductCard = ({ _id, title, image, price }: Props) => {
     const { addItemToCart } = useCart()
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card
+            sx={{
+                maxWidth: 345,
+                margin: '0 auto',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                overflow: 'hidden',
+            }}
+        >
             <CardMedia
-                sx={{ height: 200 }}
+                sx={{ height: 200, minWidth: 235, backgroundSize: 'contain'}}
                 image={image}
-                title="green iguana"
             />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+
+            <CardContent sx={{ paddingBottom: 0}}>
+                <Button onClick={() => addItemToCart(_id)} fullWidth variant="contained" color="primary" sx={{ marginBottom: 2 }}>
+                    Add To Cart
+                </Button>
+
+                <Typography variant="h6" gutterBottom>
                     {title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {price} $
                 </Typography>
             </CardContent>
 
-            <CardActions>
-                <Button variant='contained' size="small" onClick={() => addItemToCart(_id)}>Add to Cart</Button>
+            <CardActions sx={{ display: 'flex', justifyContent: "space-between" }}>
+                <IconButton sx={{  padding: 1 }}>
+                    <FavoriteIcon />
+                </IconButton>
+
+                <Box style={{ marginTop: '8px' }}>
+                    <Typography sx={{ color: 'red', fontWeight: 'bold', fontSize: '1.4rem', paddingRight: 1 }}>
+                        ${price}
+                    </Typography>
+                </Box>
             </CardActions>
         </Card>
     );

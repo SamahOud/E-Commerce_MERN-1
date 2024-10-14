@@ -27,11 +27,11 @@ const Navbar = () => {
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
-    };
+    }
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
-    };
+    }
     console.log("From navbar: ", { username, isAuthenticated });
 
     const handleLogin = () => {
@@ -61,17 +61,34 @@ const Navbar = () => {
 
                         <Button variant='text' sx={{ color: "#ffffff" }} onClick={() => navigate("/")}>
                             <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                                <AdbIcon sx={{ display: { md: 'flex' }, mr: 1 }} />
+                                <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                                 <Typography
                                     variant="h5"
                                     noWrap
                                     component="a"
                                     sx={{
                                         mr: 2,
-                                        display: { xs: 'flex', md: 'flex' },
+                                        display: { xs: 'none', md: 'flex' },
                                         flexGrow: 1,
                                         fontFamily: 'monospace',
                                         fontWeight: 700,
+                                    }}
+                                >
+                                    Tech Hub
+                                </Typography>
+
+                                <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                                <Typography
+                                    variant="h5"
+                                    noWrap
+                                    component="a"
+                                    sx={{
+                                        mr: 2,
+                                        display: { xs: 'flex', md: 'none' },
+                                        flexGrow: 1,
+                                        fontFamily: 'monospace',
+                                        fontWeight: 700,
+                                        letterSpacing: '.3rem'
                                     }}
                                 >
                                     Tech Hub
@@ -89,9 +106,9 @@ const Navbar = () => {
                                 <>
                                     <Tooltip title="Open settings">
                                         <Grid container alignItems="center" justifyContent="center" gap={2}>
-                                            <Grid item>
+                                            {/* <Grid item>
                                                 <Typography>{username}</Typography>
-                                            </Grid>
+                                            </Grid> */}
                                             <Grid item>
                                                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                                     <Avatar alt={username || ''} src="/static/images/avatar/2.jpg" />

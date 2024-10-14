@@ -3,7 +3,7 @@ import ProductCard from "../components/ProductCard"
 import { useEffect, useState } from "react"
 import { Product } from "../types/Product"
 import { BASE_URI } from "../constants/baseUrl"
-
+import ErrorPage from "./ErrorPage"
 
 const HomePage = () => {
     const [products, setProducts] = useState<Product[]>([])
@@ -23,12 +23,19 @@ const HomePage = () => {
     }, [])
 
     if (error) {
-        return <Box>Something went wrong, please try again!</Box>
+        return (
+            <Container sx={{ mt: 2 }}>
+                <ErrorPage />
+                <Box sx={{ display: "flex", justifyContent: "center", fontWeight: "bold", fontSize: 23 }}>
+                    Something went wrong, please try again!
+                </Box>
+            </Container>
+        )
     }
 
     return (
-        <Container sx={{ mt: 2 }}>
-            <Grid container spacing={2}>
+        <Container sx={{ mt: 4, mb: 4 }}>
+            <Grid container spacing={2} sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                 {products.map((p) => (
                     <Grid item md={4}>
                         <ProductCard {...p} />

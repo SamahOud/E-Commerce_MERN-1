@@ -1,4 +1,4 @@
-import { Box, Container, TextField, Typography } from "@mui/material"
+import { Box, Container, Grid, Paper, TextField, Typography } from "@mui/material"
 import { useCart } from "../context/Cart/CartContext"
 import Button from '@mui/material/Button';
 import { useRef } from "react";
@@ -16,6 +16,7 @@ const CheckoutPage = () => {
 
     const handleConfirmOrder = async () => {
         const address = addressRef.current?.value
+
         if (!address) {
             return
         }
@@ -35,31 +36,85 @@ const CheckoutPage = () => {
     }
 
     const renderCartItems = () => (
-        <Box display="flex" flexDirection="column" gap={2}
-            sx={{ border: 1, borderColor: "#f2f2f2", borderRadius: 3, p: 1 }}
-        >
-            {cartItems.map((item) => (
-                <Box
-                    display="flex"
-                    flexDirection="row"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    width="100%"
-                >
-                    <Box display="flex" flexDirection="row" alignItems="center" gap={1} width="100%">
-                        <img src={item.image} width={50} style={{ borderRadius: 3 }} />
-                        <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between" width="100%">
-                            <Typography variant="h6">{item.title}</Typography>
-                            <Typography>{item.quantity} x {item.unitPrice}</Typography>
-                        </Box>
-                    </Box>
-                </Box>
-            ))}
+        <Grid container spacing={3}>
+            <Grid item xs={12} md={8}>
+                {cartItems.map((item) => (
+                    <Paper key={item.productId} sx={{ marginBottom: 2, padding: 2 }}>
+                        <Grid container spacing={2} alignItems="center">
+                            <Grid item xs={12} sm={4} md={3}>
+                                <img
+                                    src={item.image}
+                                    alt={item.title}
+                                    style={{ width: "100%", objectFit: "cover", borderRadius: "4px" }}
+                                />
+                            </Grid>
 
-            <Box>
-                <Typography variant="body2" sx={{ textAlign: "right" }}>Totla Amount: {totalAmount.toFixed(2)} $</Typography>
-            </Box>
-        </Box>
+                            <Grid item xs={12} sm={8} md={9}>
+                                <Typography variant="h6">{item.title}</Typography>
+
+                                <Box sx={{
+                                    display: "flex",
+                                    flexDirection: { xs: "column", sm: "row" },
+                                    justifyContent: "space-between",
+                                }}
+
+                                >
+                                    <Box
+                                        display="flex"
+                                        flexDirection={{ xs: "row", sm: "column", md: "row" }}
+                                        justifyContent={{ xs: "space-between", sm: "center" }}
+                                        alignItems="center"
+                                        gap="10px"
+                                    >
+                                        <Typography variant="body1" color="textSecondary">
+                                            ${item.unitPrice * item.quantity}
+                                        </Typography>
+                                    </Box>
+
+                                    <Box display="flex"
+                                        flexDirection={{ xs: "row", sm: "column", md: "row" }}
+                                        justifyContent={{ xs: "space-between", sm: "center" }}
+                                        alignItems="center"
+                                        gap="10px"
+                                    >
+                                        <Typography variant="body1" color="textSecondary" sx={{ mt: { xs: 2, sm: 0 } }}>
+                                            <Typography>{item.quantity} x {item.unitPrice}</Typography>
+                                        </Typography>
+                                    </Box>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </Paper>
+                ))}
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+                <Paper sx={{ padding: 3 }}>
+                    <Typography variant="h6" gutterBottom>
+                        Order Summary
+                    </Typography>
+
+                    <Box display="flex" justifyContent="space-between" mb={2}>
+                        <Typography>Subtotal:</Typography>
+                        <Typography>${totalAmount.toFixed(2)}</Typography>
+                    </Box>
+
+                    <Box display="flex" justifyContent="space-between" mb={2}>
+                        <Typography>Shipping:</Typography>
+                        <Typography>Free</Typography>
+                    </Box>
+
+                    <Box display="flex" justifyContent="space-between" mb={2} fontWeight="bold">
+                        <Typography>Total:</Typography>
+                        <Typography>${totalAmount.toFixed(2)}</Typography>
+                    </Box>
+
+                    <Button onClick={handleConfirmOrder} variant="contained" color="primary" fullWidth>
+                        Pay Now
+                    </Button>
+                </Paper>
+            </Grid>
+        </Grid>
     )
 
     return (
@@ -67,9 +122,18 @@ const CheckoutPage = () => {
             <Box display="flex" flexDirection="row" justifyContent="space-between" sx={{ mb: 4 }}>
                 <Typography variant="h4">Checkout</Typography>
             </Box>
-            <TextField inputRef={addressRef} label="Delivery Address" name="address" fullWidth />
+
+            <Grid container spacing={3}>
+                <Grid item margin="6px" alignItems="center" justifyContent="center">
+                    <TextField inputRef={addressRef} label="Delivery Address" name="address"
+                        variant="standard"
+                        color="warning"
+                        focused
+                    />
+                </Grid>
+            </Grid>
+
             {renderCartItems()}
-            <Button variant="contained" fullWidth onClick={handleConfirmOrder}>Pay Now</Button>
         </Container >
     )
 }

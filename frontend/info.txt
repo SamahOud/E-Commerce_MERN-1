@@ -18,3 +18,7 @@
 6. npm install @mui/material @emotion/react @emotion/styled
 
 7. npm i @mui/icons-material
+
+8. npm install styled-components
+
+9. npm update
